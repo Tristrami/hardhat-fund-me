@@ -44,28 +44,6 @@ contract FundMe
         s_priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
-
-    // Explainer from: https://solidity-by-example.org/fallback/
-    // Ether is sent to contract
-    //      is msg.data empty?
-    //          /   \ 
-    //         yes  no
-    //         /     \
-    //    receive()?  fallback() 
-    //     /   \ 
-    //   yes   no
-    //  /        \
-    //receive()  fallback()
-    // receive() external payable
-    // {
-    //     fund();
-    // }
-
-    // fallback() external payable
-    // {
-    //     fund();
-    // }
-
     function fund() public payable
     {
         // Want to be able to set a minimum fund amount in USD
@@ -131,6 +109,27 @@ contract FundMe
     {
         return s_priceFeed;
     }
+
+    // Explainer from: https://solidity-by-example.org/fallback/
+    // Ether is sent to contract
+    //         is msg.data empty?
+    //             /      \ 
+    //            yes     no
+    //            /        \
+    //       receive()?  fallback() 
+    //        /   \ 
+    //      yes   no
+    //     /        \
+    // receive()  fallback()
+    // receive() external payable
+    // {
+    //     fund();
+    // }
+
+    // fallback() external payable
+    // {
+    //     fund();
+    // }
 }
 
 /*  
